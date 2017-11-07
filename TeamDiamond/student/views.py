@@ -1,40 +1,54 @@
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
-
+from .forms import UserForm
+from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("<h1> HomePage or Index View </h1>")
+    if not request.user.is_authenticated():
+        return render(request, 'student/login.html')
 
 
-@login_required()
-def home(request):
-    return render(request, 'student/home.html')
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+         "form": form,
+    }
+    return render(request, 'student/login.html', context)
 
 
-def signup(request):
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login_user(request, user)
+                return render(request, 'student/base.html')
+            else:
+                return render(request, 'student/login.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'student/login.html', {'error_message': 'Invalid login'})
+    return render(request, 'student/login.html')
+
+
+def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return render(request, 'student/home.html')
+            return redirect('homepage')
     else:
-        form = UserCreationForm()
-    return render(request, 'student/signup.html', {'form': form})
+        form = UserForm()
+    return render(request, 'student/register.html', {'form': form})
 
 
-def logout(request):
-    return render(request, 'student/home.html')
-
-
-def login(request):
-    return render(request, 'student/login.html')
-
-
+def homepage(request):
+    return render(request, 'student/homepage.html')
