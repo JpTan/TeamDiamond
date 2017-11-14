@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicants</title>
+</head>
+<body>
+    {% if applicant_list %}
+        {% for x in applicant_list %}
+            <a href="{% url 'oas:view_applicant_detail' x.idNum %}">{{ x.email }}</a><br>
+        {% endfor %}
+    {% else %}
+        <h3>No loan applicants</h3>
+    {% endif %}
+
+    <input type="button" value="Back" onclick="location.href = '{% url 'oas:index' %}'">
+
+
+</body>
+</html>
