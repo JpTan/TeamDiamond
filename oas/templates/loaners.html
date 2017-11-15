@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Applicants</title>
-</head>
-<body>
-    {% if applicant_list %}
+    <title>Loaners</title>
+    {% if loaners %}
         <table style="width:100%">
 
-        {% for x in applicant_list %}
+        {% for x in loaners %}
             <tr>
-                <td><a href="{% url 'oas:view_applicant_detail' x.idNum %}">{{ x.email }}</a></td>
+                <td><a href="{% url 'oas:view_loaner_detail' x.idNum %}">{{ x.email }}</a></td>
             </tr>
         {% endfor %}
 
         </table>
     {% else %}
-        <h3>No loan applicants</h3>
+        <h3>No loaners</h3>
     {% endif %}
 
     <input type="button" value="Back" onclick="location.href = '{% url 'oas:index' %}'">
 
+</head>
+<body>
 
 </body>
 </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Details</title>
+</head>
+<body>
+    {{ student.idNum }}<br>
+    {{ student.lastName }}, {{ student.firstName }}<br>
+    {{ student.college }}<br>
+    {{ student.level }}<br>
+    {{ student.degree }}<br>
+    {{ student.email }}<br>
+    {{ student.cpNum }}<br>
+    <p>
+    Loan amount: {{ loan.amount }}<br>
+    Balance left: {{ loan.balance }}<br>
+    </p>
+
+    <p>
+    Payment details:<br>
+    OR Number: {{ payment.orNum }}<br>
+    Amount: {{ payment.amount }}<br>
+    Date: {{ payment.date }}<br>
+    Status:
+    {% if payment.isApproved %}
+        Approved.<br></p>
+    {% else %}
+        In Process.<br></p>
+        <input type="button" value="Approve" onclick="location.href = '{% url 'oas:approve_payment' payment.orNum %}'"><br>
+        <input type="button" value="Reject" onclick="location.href = '{% url 'oas:reject_payment' payment.orNum %}'"><br>
+        <input type="button" value="Edit Payment Information" onclick="location.href = '{% url 'oas:edit_payment' payment.orNum %}'"><br>
+    {% endif %}
+
+    <br><input type="button" value="Back" onclick="location.href = '{% url 'oas:all_payments' %}'">
+
+
+</body>
+</html>

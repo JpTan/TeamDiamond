@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.idNum }}</title>
+</head>
+<body>
+    {{ student.idNum }}<br>
+    {{ student.lastName }}, {{ student.firstName }}<br>
+    {{ student.college }}<br>
+    {{ student.level }}<br>
+    {{ student.degree }}<br>
+    {{ student.email }}<br>
+    {{ student.cpNum }}<br>
+    Loan amount: {{ loan.amount }}<br>
+    Balance left: {{ loan.balance }}<br>
+    <input type="button" value="Delete" onclick="location.href = '{% url 'oas:delete_student' student.idNum %}'"><br>
+
+    <input type="button" value="Back" onclick="location.href = '{% url 'oas:view_loaners' %}'">
+
+
+</body>
+</html>
