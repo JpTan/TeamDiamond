@@ -1,30 +1,24 @@
 <html>
+    <title>Sign Up</title>
     <body>
+        <h1>Sign Up</h1>
         {% if error %}
         {{ error }}
         {% endif %}
         <form method="post" action="">
             {% csrf_token %}
-            <input type="text" name="First Name" placeholder="First Name">
-            <input type="text" name="Last Name" placeholder="Last Name">
-            <input type="text" name="ID Number" placeholder="ID Number">
-            <input type="text" name="College" placeholder="College">
-            <input type="text" name="Course" placeholder="Course">
-            <!--<select name="College">
-                <option value="BAGCED">BAGCED</option>
-                <option value="CCS">CCS</option>
-                <option value="COL">COL</option>
-                <option value="CLA">CLA</option>
-                <option value="C0S">COS</option>
-                <option value="GCOE">GCOE</option>
-                <option value="RVRCOB">RVRCOB</option>
-                <option value="SOE">SOE</option>
-            </select>-->
-            <input type="text" name="Cellphone Number" placeholder="Cellphone Number">
-            <input type="text" name="Email" placeholder="Email">
-            <input type="password" name="password1" placeholder="Password">
-            <input type="password" name="password2" placeholder="Password Again">
+            <input type="text" name="First Name" placeholder="First Name" required>
+            <input type="text" name="Last Name" placeholder="Last Name" required>
+            <input type="text" name="ID Number" placeholder="ID Number" required>
+            <input type="text" name="College" placeholder="College" required>
+            <input type="text" name="Course" placeholder="Course" required>
+            <input type="text" name="Cellphone Number" placeholder="Cellphone Number" required>
+            <input type="text" name="Email" placeholder="Email" required>
+            <input type="password" name="password1" placeholder="Password" required>
+            <input type="password" name="password2" placeholder="Password Again" required>
             <input type="submit" value="signup">
+            <p>Already Registered? </p>
+            <a href="{% url 'login_url' %}">Login</a>
         </form>
     </body>
 </html>

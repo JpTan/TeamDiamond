@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from .models import Student
+from django.views import generic
 
 
 def user_login(request):
@@ -12,7 +13,9 @@ def user_login(request):
         user = authenticate(username=email, password=password)
         if user:
             login(request, user)
-            return HttpResponseRedirect('/account/signup/')
+            student = Student.objects.get(user=user)
+            return HttpResponseRedirect('/account/home/')
+            #return redirect('account.views.home_view.as_view()', pk=student.pk)
         else:
             error = " Sorry! Email and Password didn't match, Please try again ! "
             return render(request, 'account/index.html', {'error': error})
@@ -42,3 +45,13 @@ def user_signup(request):
             return render(request, 'account/signup.html', {'error': error})
     else:
         return render(request, 'account/signup.html')
+
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/account/login/')
+
+
+class home_view(generic.DetailView):
+    model = Student
+    template_name = 'account/home.html'

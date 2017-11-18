@@ -1,0 +1,12 @@
+<html>
+    <title>{{ Student.user.pk }}</title>
+    <body>
+        <a href="{% url 'logout_url' %}">Logout</a>
+        <h1>Profile</h1>
+        <h3>Name{{ Student.last_name }}, {{ Student.first_name }}</h3>
+        <h3>ID Number: {{ Student.id_number }}</h3>
+        <h3>College: {{ Student.college }}</h3>
+        <h3>Course: {{ Student.course }}</h3>
+        <h3>Cellphone Number: {{ Student.cellphone_number }}</h3>
+    </body>
+</html>
