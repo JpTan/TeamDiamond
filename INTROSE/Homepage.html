@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+    <title>Student Loan Calculator</title>
+    <link rel="stylesheet" type = "text/css" href="my.css">
+	</head>
+<body>	
+	<div class ="container">
+	<div id ="wew">	
+	<div id ="backColor">
+		
+		<h1 class = "title"> 
+			De La Salle University 
+		</h1>
+		
+		<h2 class ="info">
+			Student Loan Calculator
+		</h2>
+		<p class ="desc1">
+			Student loan program (SLP) is a short-term interest-free loan facility 
+			for
+		</p>
+		<p class ="desc2">
+		the payment of tuition and fees of undegraduate and graduate students
+		</p>
+		<button class ="button button1" button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign Up</button>
+		
+		<button class ="button button2" button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Log In</button>
+		<div id="id01" class="modal">
+  
+  <form class="modal-content animate">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+	</div>
+
+    <div class="container">
+      <label><b><tab1><font face="Sans-serif">Username</tab1></b></label>
+	  <br>
+	  <br>
+	  <center>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+	  </center>
+		<br>
+		<br>
+      <label><b><font face="Sans-serif"><tab1>Password</tab1></b></label>
+	  <br>
+	  <br>
+     <center> <input type="password" placeholder="Enter Password" name="psw" required> </center>
+        <br>
+		<br>
+      <tab1><a href="OAS.html" button type="submit" class="submit"><font face="Sans-serif">Log in</tab></button></a>
+    </div>
+
+  </form>
+</div>
+
+<div id = "logo">
+		</div>
+</div>
+</div>
+</div>
+
+	<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+	
+</body>
+</html>
