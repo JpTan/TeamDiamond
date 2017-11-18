@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponseRedirect
 from .models import Student
 from django.views import generic
+from django.urls import reverse
 
 
 def user_login(request):
@@ -14,8 +15,7 @@ def user_login(request):
         if user:
             login(request, user)
             student = Student.objects.get(user=user)
-            return HttpResponseRedirect('/account/home/')
-            #return redirect('account.views.home_view.as_view()', pk=student.pk)
+            return HttpResponseRedirect(reverse('account:home_url', args=(student.id,)))
         else:
             error = " Sorry! Email and Password didn't match, Please try again ! "
             return render(request, 'account/index.html', {'error': error})
