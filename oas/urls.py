@@ -14,9 +14,9 @@ urlpatterns = [
     url(r'^loaners/(?P<idnum>[0-9]{8})/$', views.view_loaner_detail, name='view_loaner_detail'),
     url(r'^payments/pending/$', views.view_payments_pending, name='pending_payments'),
     url(r'^payments/all/$', views.view_payments_all, name='all_payments'),
-    url(r'^payments/(?P<ornum>[\w{}.-]{1,20})/$', views.view_payment_detail, name='view_payment_detail'),
-    url(r'^payments/(?P<ornum>[\w{}.-]{1,20})/approve$', views.approve_payment, name='approve_payment'),
-    url(r'^payments/(?P<ornum>[\w{}.-]{1,20})/reject$', views.reject_payment, name='reject_payment'),
-    url(r'^payments/(?P<ornum>[\w{}.-]{1,20})/edit$', views.edit_payment, name='edit_payment'),
+    url(r'^payments/(?P<pk>[\w{}.-]{1,20})/$', views.view_payment_detail, name='view_payment_detail'),
+    url(r'^payments/(?P<pk>[\w{}.-]{1,20})/approve$', views.approve_payment, name='approve_payment'),
+    url(r'^payments/(?P<pk>[\w{}.-]{1,20})/reject$', views.reject_payment, name='reject_payment'),
+    url(r'^payments/(?P<pk>[\w{}.-]{1,20})/edit$', views.edit_payment, name='edit_payment'),
 
 ]

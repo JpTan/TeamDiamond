@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from dbhandler.models import Student, Loan, Payment
-from django.views import generic
+from django.views.generic import View
+from .forms import PaymentForm
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -79,29 +81,89 @@ def view_payments_all(request):
     return render(request, 'payments.html', {'payments': payments, 'show_all': show_all})
 
 
-def view_payment_detail(request, ornum):
-    payment = Payment.objects.get(orNum=ornum)
+def view_payment_detail(request, pk):
+    payment = Payment.objects.get(pk=pk)
     student = Student.objects.get(idNum=payment.idNum.idNum)
     loan = Loan.objects.get(idNum=student)
     return render(request, 'payment_details.html', {'student': student, 'payment': payment, 'loan': loan})
 
 
-def approve_payment(request, ornum):
-    payment = Payment.objects.get(orNum=ornum)
+def approve_payment(request, pk):
+    payment = Payment.objects.get(pk=pk)
     payment.isApproved = True
     payment.save()
     student = Student.objects.get(idNum=payment.idNum.idNum)
     loan = Loan.objects.get(idNum=student)
     loan.balance -= payment.amount
     loan.save()
-    return redirect('oas:view_payment_detail', ornum=ornum)
+    return redirect('oas:view_payment_detail', pk=pk)
 
 
-def reject_payment(request, ornum):
-    Payment.objects.get(orNum=ornum).delete()
+def reject_payment(request, pk):
+    Payment.objects.get(pk=pk).delete()
     return redirect('oas:all_payments')
 
 
-def edit_payment(request, ornum):
-    Payment.objects.get(orNum=ornum).delete()
-    return redirect('oas:all_payments')
+# def edit_payment(request, ornum):
+#     payment = Payment.objects.get(orNum=ornum)
+#     student = Student.objects.get(idNum=payment.idNum.idNum)
+#     loan = Loan.objects.get(idNum=student)
+#     return render(request, 'payment_edit.html', {'student': student, 'payment': payment, 'loan': loan})
+
+
+def edit_payment(request, pk):
+    payment = Payment.objects.get(pk=pk)
+    student = Student.objects.get(idNum=payment.idNum.idNum)
+    loan = Loan.objects.get(idNum=student)
+
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            paymentf = form.save(commit=False)
+            paymentf.idNum = student
+            paymentf.isApproved = False
+            payment.delete()
+            paymentf.save()
+            # payment.orNum = paymentF.orNum
+            # payment.amount = paymentF.amount
+            # payment.date = paymentF.date
+            # payment.save()
+
+            return redirect('oas:view_payment_detail', pk=paymentf.pk)
+    else:
+        form = PaymentForm(None, initial={'orNum': payment.orNum, 'amount': payment.amount, 'date': payment.date})
+
+    return render(request, 'payment_edit.html', {'form': form, 'student': student, 'payment': payment, 'loan': loan})
+
+#
+# class PaymentView(View):
+#     form_class = PaymentForm
+#     template_name = 'payment_edit.html'
+#
+#     # display blank form
+#     def get(self, request, ornum):
+#         payment = Payment.objects.get(orNum=ornum)
+#         student = Student.objects.get(idNum=payment.idNum.idNum)
+#         loan = Loan.objects.get(idNum=student)
+#         form = self.form_class(None, initial={'orNum': payment.orNum, 'amount': payment.amount, 'date': payment.date})
+#
+#             if form.is_valid():
+#                 payment = form.save(commit=False)
+#                 payment.save()
+#                 return redirect('oas:view_payment_detail', ornum=ornum)
+#
+#         return render(request, self.template_name, {'form': form, 'student': student, 'payment': payment, 'loan': loan})
+#
+#     # process form data
+#     def post(self, request, ornum):
+#         payment = Payment.objects.get(orNum=ornum)
+#         student = Student.objects.get(idNum=payment.idNum.idNum)
+#         loan = Loan.objects.get(idNum=student)
+#         form = self.form_class(request.POST, initial={'orNum': payment.orNum, 'amount': payment.amount, 'date': payment.date})
+#
+#         if form.is_valid():
+#             payment = form.save(commit=False)
+#             payment.save()
+#             return redirect('oas:view_payment_detail', ornum=ornum)
+#
+#         return render(request, self.template_name, {'form': form, 'student': student, 'payment': payment, 'loan': loan})

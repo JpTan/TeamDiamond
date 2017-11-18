@@ -27,9 +27,9 @@
         Approved.<br></p>
     {% else %}
         In Process.<br></p>
-        <input type="button" value="Approve" onclick="location.href = '{% url 'oas:approve_payment' payment.orNum %}'"><br>
-        <input type="button" value="Reject" onclick="location.href = '{% url 'oas:reject_payment' payment.orNum %}'"><br>
-        <input type="button" value="Edit Payment Information" onclick="location.href = '{% url 'oas:edit_payment' payment.orNum %}'"><br>
+        <input type="button" value="Approve" onclick="location.href = '{% url 'oas:approve_payment' payment.pk %}'"><br>
+        <input type="button" value="Reject" onclick="location.href = '{% url 'oas:reject_payment' payment.pk %}'"><br>
+        <input type="button" value="Edit Payment Information" onclick="location.href = '{% url 'oas:edit_payment' payment.pk %}'"><br>
     {% endif %}
 
     <br><input type="button" value="Back" onclick="location.href = '{% url 'oas:all_payments' %}'">

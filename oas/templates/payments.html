@@ -13,7 +13,7 @@
     </tr>
     {% for x in payments %}
         <tr>
-            <td><a href="{% url 'oas:view_payment_detail' x.orNum %}">{{ x.orNum }}</a></td>
+            <td><a href="{% url 'oas:view_payment_detail' x.pk %}">{{ x.orNum }}</a></td>
             <td>{{ x.idNum.idNum }}</td>
             <td>{{ x.date }}</td>
         </tr>
