@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payments View</title>
+</head>
+<body>
+    <h1> View Payments </h1>
+    <ul>
+        {% for item in object_list %}
+            <li><a href="{% url 'sample:view_payment_details' item.orNum%}">{{ item.orNum }}</a></li>
+        {% endfor %}
+    </ul>
+    <h4><a href="{% url 'sample:payment-add' %}">Add Payment</a></h4>
+</body>
+</html>
