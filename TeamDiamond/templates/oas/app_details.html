@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ student.idNum }}</title>
+</head>
+<body>
+    {{ student.id_number }}<br>
+    {{ student.last_name }}, {{ student.first_name }}<br>
+    {{ student.college }}<br>
+    {{ student.level }}<br>
+    {{ student.course }}<br>
+    {{ student.email }}<br>
+    {{ student.cellphone_number }}<br>
+    Loan amount: {{ loan.amount }}<br>
+    Loan status: {{ loan.status }}<br>
+    <input type="button" value="Delete" onclick="location.href = '{% url 'oas:delete_student' student.id_number %}'"><br>
+
+    {% if loan.status == 'In Process' %}
+        <input type="button" value="Approve" onclick="location.href = '{% url 'oas:approve_loan' student.id_number %}'"><br>
+        <input type="button" value="Reject" onclick="location.href = '{% url 'oas:reject_loan' student.id_number %}'"><br>
+    {% endif %}
+
+    <input type="button" value="Back" onclick="location.href = '{% url 'oas:view_applicants' %}'">
+
+
+</body>
+</html>

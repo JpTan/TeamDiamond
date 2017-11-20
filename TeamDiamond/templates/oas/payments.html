@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payments</title>
+</head>
+<body>
+    <table style="width:100%">
+    <tr>
+        <td>ORNUM</td>
+        <td>IDNUM</td>
+        <td>DATE</td>
+    </tr>
+    {% for x in payments %}
+        <tr>
+            <td><a href="{% url 'oas:view_payment_detail' x.pk %}">{{ x.orNum }}</a></td>
+            <td>{{ x.idNum.id_number }}</td>
+            <td>{{ x.date }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    {% if show_all %}
+        <input type="button" value="Show Pending" onclick="location.href = '{% url 'oas:pending_payments' %}'"><br>
+    {% else %}
+        <input type="button" value="Show All" onclick="location.href = '{% url 'oas:all_payments' %}'"><br>
+    {% endif %}
+
+    <input type="button" value="Main Menu" onclick="location.href = '{% url 'oas:index' %}'">
+
+</body>
+</html>

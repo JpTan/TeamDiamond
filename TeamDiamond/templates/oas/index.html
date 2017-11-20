@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+
+    <h4><a href="{% url 'oas:view_applicants' %}">View applicants</a></h4>
+    <h4><a href="{% url 'oas:view_loaners' %}">View loaners</a></h4>
+    <h4><a href="{% url 'oas:all_payments' %}">View payments</a></h4>
+    <br><input type="button" value="Logout" onclick="location.href = '{% url 'account:logout_url' %}'">
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Payments</title>
+</head>
+<body>
+
+    {{ student.id_number }}<br>
+    {{ student.last_name }}, {{ student.first_name }}<br>
+    {{ student.college }}<br>
+    {{ student.level }}<br>
+
+    <p>
+    Loan amount: {{ loan.amount }}<br>
+    Balance left: {{ loan.balance }}<br>
+    </p>
+
+    <p>
+    Payment details:<br>
+
+{#    <form action={% url 'oas:process_payment_edit' %} method="post">#}
+{#        <label for="orNum">OR Number: </label>#}
+{#        <input id="orNum" type="text" name="orNum" value="{{ payment.orNum }}">#}
+{#        <label for="amount">Amount: </label>#}
+{#        <input id="amount" type="text" name="amount" value="{{ payment.amount }}">#}
+{#        <label for="date">Date: </label>#}
+{#        <input id="date" type="text" name="date" value="{{ payment.date }}">#}
+{#        <input type="submit" value="Save and Approve Payment">#}
+{#    </form>#}
+    <form class="form-horizontal" action="" method="post">
+        {% csrf_token %}
+          {% for field in form %}
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                      <span class="text-danger small">{{ field.errors }}</span>
+                  </div>
+                  <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+                  <div class="col-sm-10">{{ field }}</div>
+              </div>
+          {% endfor %}
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+            </div>
+        </div>
+    </form>
+
+    <br><input type="button" value="Back" onclick="location.href = '{% url 'oas:view_payment_detail' payment.pk %}'">
+
+</body>
+</html>
