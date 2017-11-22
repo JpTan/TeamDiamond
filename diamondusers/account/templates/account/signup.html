@@ -7,15 +7,34 @@
         {% endif %}
         <form method="post" action="">
             {% csrf_token %}
-            <input type="text" name="First Name" placeholder="First Name" value="{{ array.1 }}" required><br>
-            <input type="text" name="Last Name" placeholder="Last Name" value="{{ array.2 }}" required><br>
-            <input type="text" name="ID Number" placeholder="ID Number" value="{{ array.3 }}" required><br>
-            <input type="text" name="College" placeholder="College" value="{{ array.4 }}" required><br>
-            <input type="text" name="Course" placeholder="Course" value="{{ array.5 }}" required><br>
-            <input type="text" name="Cellphone Number" placeholder="Cellphone Number" value="{{ array.6 }}" required><br>
-            <input type="text" name="Email" placeholder="Email" value="{{ array.7 }}" required><br>
-            <input type="password" name="password1" placeholder="Password" required><br>
-            <input type="password" name="password2" placeholder="Password Again" required><br>
+            <label for="First Name">First Name: </label>
+            <input id="First Name" type="text" name="First Name" value="{{ array.1 }}" required><br>
+            <label for="Last Name">Last Name: </label>
+            <input id="Last Name" type="text" name="Last Name" value="{{ array.2 }}" required><br>
+            <label for="ID Number">ID Number: </label>
+            <input id="ID Number" type="text" name="ID Number" value="{{ array.3 }}" pattern="[0-9]" required><br>
+            <label for="College">College: </label>
+            <select id="College" name="College" required>
+                <option disabled selected value> -- Select Your College -- </option>
+                <option value="BAGCED" {% if array.4 == "BAGCED" %}selected{% endif %}>BAGCED</option>
+                <option value="CCS" {% if array.4 == "CCS" %}selected{% endif %}>CCS</option>
+                <option value="COL" {% if array.4 == "COL" %}selected{% endif %}>COL</option>
+                <option value="CLA" {% if array.4 == "CLA" %}selected{% endif %}>CLA</option>
+                <option value="COS" {% if array.4 == "COS" %}selected{% endif %}>COS</option>
+                <option value="GCOE" {% if array.4 == "GCOE" %}selected{% endif %}>GCOE</option>
+                <option value="RVRCOB" {% if array.4 == "RVRCOB" %}selected{% endif %}>RVRCOB</option>
+                <option value="SOE" {% if array.4 == "SOE" %}selected{% endif %}>SOE</option>
+            </select><br>
+            <label for="Course">Course: </label>
+            <input id="Course" type="text" name="Course" value="{{ array.5 }}" required><br>
+            <label for="Cellphone Number">Cellphone Number: </label>
+            <input id="Cellphone Number" type="text" name="Cellphone Number" value="{{ array.6 }}" required><br>
+            <label for="Email">Email: </label>
+            <input id="Email" type="text" name="Email" value="{{ array.7 }}" required><br>
+            <label for="password1">Password: </label>
+            <input id="password1" type="password" name="password1" required><br>
+            <label for="password2">Re-Enter Password: </label>
+            <input id="password2" type="password" name="password2" required><br>
             <input type="submit" value="signup"><br>
             <p>Already Registered? <a href="{% url 'account:login_url' %}">Login</a> Now</p>
         </form>
