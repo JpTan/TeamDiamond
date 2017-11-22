@@ -1,0 +1,16 @@
+<html>
+    <title>Login</title>
+    <body>
+        <h1>Login</h1>
+        {% if array %}
+        {{ array.0 }}
+        {% endif %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="text" placeholder="Email" name="email" value="{{ array.1 }}" required><br>
+            <input type="password" placeholder="Password" name="password" required><br>
+            <input type="submit" value="login"><br>
+            <p>Not Yet Registered? <a href="{% url 'account:signup_url' %}">Sign Up</a> Now</p>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+    <title>Profile</title>
+    <body>
+        <a href="{% url 'account:logout_url' %}">Logout</a>
+        <h1>Profile</h1>
+        {% if array %}
+            {{ array.0 }}
+        {% endif %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <label for="First Name">First Name: </label>
+            <input id="First Name" type="text" name="First Name" value="{{ array.1 }}" required><br>
+            <label for="Last Name">Last Name: </label>
+            <input id="Last Name" type="text" name="Last Name" value="{{ array.2 }}" required><br>
+            <label for="ID Number">ID Number: </label>
+            <input id="ID Number" type="text" name="ID Number" value="{{ array.3 }}" required><br>
+            <label for="College">College: </label>
+            <input id="College" type="text" name="College" value="{{ array.4 }}" required><br>
+            <label for="Course">Course: </label>
+            <input id="Course" type="text" name="Course" value="{{ array.5 }}" required><br>
+            <label for="Cellphone Number">Cellphone Number: </label>
+            <input id="Cellphone Number" type="text" name="Cellphone Number" value="{{ array.6 }}" required><br>
+            <label for="password1">Password: </label>
+            <input id="password1" type="password" name="password1" required><br>
+            <label for="password2">Re-Enter Password: </label>
+            <input id="password2" type="password" name="password2" required><br>
+            <input type="submit" value="update"><br>
+        </form>
+    </body>
+</html>
