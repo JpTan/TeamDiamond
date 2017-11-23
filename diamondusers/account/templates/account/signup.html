@@ -12,7 +12,7 @@
             <label for="Last Name">Last Name: </label>
             <input id="Last Name" type="text" name="Last Name" value="{{ array.2 }}" required><br>
             <label for="ID Number">ID Number: </label>
-            <input id="ID Number" type="text" name="ID Number" value="{{ array.3 }}" pattern="[0-9]" required><br>
+            <input id="ID Number" type="text" name="ID Number" value="{{ array.3 }}" pattern="[0-9]{8}" required><br>
             <label for="College">College: </label>
             <select id="College" name="College" required>
                 <option disabled selected value> -- Select Your College -- </option>
@@ -27,8 +27,8 @@
             </select><br>
             <label for="Course">Course: </label>
             <input id="Course" type="text" name="Course" value="{{ array.5 }}" required><br>
-            <label for="Cellphone Number">Cellphone Number: </label>
-            <input id="Cellphone Number" type="text" name="Cellphone Number" value="{{ array.6 }}" required><br>
+            <label for="Cellphone Number">Cellphone Number(Must Start with 09): </label>
+            <input id="Cellphone Number" type="text" name="Cellphone Number" value="{{ array.6 }}" pattern="[0-9]{11}" required><br>
             <label for="Email">Email: </label>
             <input id="Email" type="text" name="Email" value="{{ array.7 }}" required><br>
             <label for="password1">Password: </label>
