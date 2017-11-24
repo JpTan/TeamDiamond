@@ -123,6 +123,60 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('account:login_url')
+        student = Student.objects.get(user=user)
+        return redirect('account:profile_url', pk=student.id_number)
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+def forgot_password(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            if user.is_active:
+                current_site = get_current_site(request)
+                message = render_to_string('account/forgot_pass_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                })
+                mail_subject = 'Reset Your Password.'
+                to_email = user.email
+                email = EmailMessage(mail_subject, message, to=[to_email])
+                email.send()
+                return HttpResponse(' Please reset your password through the link sent to your Email ')
+            else:
+                error = " Sorry! This Account Is Not Yet Activated, Please try again "
+                return render(request, 'account/forgot_password.html', {'error': error})
+        else:
+            error = " Sorry! Email Doesn't Exist, Please try again  "
+            return render(request, 'account/forgot_password.html', {'error': error})
+    else:
+        return render(request, 'account/forgot_password.html')
+
+
+def reset_password(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        if request.method=="POST":
+            password1 = request.POST.get('password1')
+            password2 = request.POST.get('password2')
+            if password1 == password2:
+                user.set_password(password1)
+                user.save()
+                login(request, user)
+                student = Student.objects.get(user=user)
+                return redirect('account:profile_url', pk=student.id_number)
+            else:
+                error = " Password Mismatch "
+                return render(request, 'account/reset_password.html', {'error': error})
+        else:
+            return render(request, 'account/reset_password.html')
+    else:
+        return HttpResponse('Reset Password link is invalid!')

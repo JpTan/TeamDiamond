@@ -9,4 +9,6 @@ urlpatterns = [
        url(r'^logout/', views.user_logout, name='logout_url'),
        url(r'^(?P<pk>[0-9]+)/$', views.user_profile, name='profile_url'),
        url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
+       url(r'^forgot_password/', views.forgot_password, name='forgot_password'),
+       url(r'^reset_password/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.reset_password, name='reset_password'),
 ]
