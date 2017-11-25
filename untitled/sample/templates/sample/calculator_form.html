@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculate</title>
+</head>
+<body>
+    <h1>Calculate here!</h1>
+    <form method="POST" action="{% url 'sample:result' %}">
+        {% csrf_token %}
+        <label for="amount_field">Amount</label>
+        <input type="text" name="amount_field" id="amount_field"><br>
+        <label for="smonth_field">Starting Month (MM)</label>
+        <input type="text" name="smonth_field" id="smonth_field"><br>
+        <label for="emonth_field">Ending Month (MM)</label>
+        <input type="text" name="emonth_field" id="emonth_field"><br>
+        <button type="submit">Calculate</button>
+    </form>
+</body>
+</html>

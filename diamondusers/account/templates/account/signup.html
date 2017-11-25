@@ -1,0 +1,23 @@
+<html>
+    <title>Sign Up</title>
+    <body>
+        <h1>Sign Up</h1>
+        {% if error %}
+        {{ error }}
+        {% endif %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="text" name="First Name" placeholder="First Name" required><br>
+            <input type="text" name="Last Name" placeholder="Last Name" required><br>
+            <input type="text" name="ID Number" placeholder="ID Number" required><br>
+            <input type="text" name="College" placeholder="College" required><br>
+            <input type="text" name="Course" placeholder="Course" required><br>
+            <input type="text" name="Cellphone Number" placeholder="Cellphone Number" required><br>
+            <input type="text" name="Email" placeholder="Email" required><br>
+            <input type="password" name="password1" placeholder="Password" required><br>
+            <input type="password" name="password2" placeholder="Password Again" required><br>
+            <input type="submit" value="signup"><br>
+            <p>Already Registered? <a href="{% url 'account:login_url' %}">Login</a> Now</p>
+        </form>
+    </body>
+</html>
